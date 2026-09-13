@@ -19,6 +19,7 @@ import javax.swing.plaf.FileChooserUI;
  */
 public class Ejercicio2 {
     public static void main(String[] args) {
+        
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 

@@ -37,8 +37,8 @@ public class Ejercicio3 {
                     Scanner sc = new Scanner(System.in);
                     System.out.print("Introduce nombre del directorio: ");
                     String nombreDirectorio = sc.nextLine();
-                    
-                    JFileChooser chooser = new JFileChooser();
+
+                    JFileChooser chooser = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src");
                     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
                     int returnVal = chooser.showOpenDialog(null);
@@ -59,32 +59,43 @@ public class Ejercicio3 {
                     break;
 
                 case 2:
-                    
-                    JFileChooser chooser2 = new JFileChooser();
+
+                    JFileChooser chooser2 = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
                     chooser2.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
                     int returnVal2 = chooser2.showOpenDialog(null);
-                    
+
                     if (returnVal2 == JFileChooser.APPROVE_OPTION) {
 
                         File f2 = chooser2.getSelectedFile();
+                        System.out.println("Contenido de: " + f2.getAbsolutePath());
 
-                        for (File f : f2.listFiles()) {
-                            
-                            if (f.isDirectory()) {
-                                for (File j : f.listFiles()) {
-                                    System.out.println("- " + j.getName() + " (" + j.length() + ")" + (j.isDirectory() ? " DIRECTORIO" : " ARCHIVO"));
-                                }
-                            }
-
-                            System.out.println("- " + f.getName() + " (" + f.length() + ")" + (f.isDirectory() ? " DIRECTORIO" : " ARCHIVO"));
-                        }
+                        listarRecursiva(f2, "");
+                        
 
                     }
 
                     break;
 
                 case 3:
+
+                    JFileChooser chooser3 = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
+                    chooser3.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                    int returnVal3 = chooser3.showOpenDialog(null);
+
+                    if (returnVal3 == JFileChooser.APPROVE_OPTION) {
+
+                        File f3 = chooser3.getSelectedFile();       
+                        
+                        if (seBorro(f3)) {
+                            System.out.println("Se ha borrado");
+                        } else {
+                            System.out.println("Error...");
+                        }
+
+                    }
+
 
                     break;
 
@@ -111,9 +122,40 @@ public class Ejercicio3 {
         System.out.println("2. Listar directorio");
         System.out.println("3. Eliminar un archivo o directorio");
         System.out.println("4. Mostrar");
+        System.out.println("x. Cualquier otra opcion para salir");
 
         System.out.print("Opcion: ");
         return sc.nextInt();
+    }
 
+    private static void listarRecursiva(File directorio, String sangria) {
+
+        if (directorio == null)
+            return;
+
+        for (File f : directorio.listFiles()) {
+            System.out.println(sangria + 
+                    "- " + f.getName() + " (" + f.length() + ")" + (f.isDirectory() ? " DIRECTORIO" : " ARCHIVO"));
+
+            if (f.isDirectory()) {
+                listarRecursiva(f, sangria + "     ");
+            }
+
+        }
+
+    }
+
+    private static boolean seBorro(File directorio) {
+
+        boolean seHaBorrado = false;
+
+        if (directorio.isDirectory()) {
+            for (File f : directorio.listFiles()) {
+                seBorro(f);
+            }
+        }
+
+
+        return directorio.delete();
     }
 }
