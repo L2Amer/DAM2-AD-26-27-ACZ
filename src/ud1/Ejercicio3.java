@@ -33,74 +33,19 @@ public class Ejercicio3 {
 
             switch (opcion) {
                 case 1:
-
-                    Scanner sc = new Scanner(System.in);
-                    System.out.print("Introduce nombre del directorio: ");
-                    String nombreDirectorio = sc.nextLine();
-
-                    JFileChooser chooser = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src");
-                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-                    int returnVal = chooser.showOpenDialog(null);
-
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-
-                        File f = chooser.getSelectedFile();
-
-                        File nuevoDirectorio = new File(f, nombreDirectorio);
-
-                        if (nuevoDirectorio.mkdir()) {
-                            System.out.println("Creado correctamente en " + nuevoDirectorio.getAbsolutePath());
-                        } else {
-                            System.out.println("No se ha podido crear");
-                        }
-                    }
-
+                    crearDirectorio();
                     break;
 
                 case 2:
-
-                    JFileChooser chooser2 = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
-                    chooser2.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-                    int returnVal2 = chooser2.showOpenDialog(null);
-
-                    if (returnVal2 == JFileChooser.APPROVE_OPTION) {
-
-                        File f2 = chooser2.getSelectedFile();
-                        System.out.println("Contenido de: " + f2.getAbsolutePath());
-
-                        listarRecursiva(f2, "");
-                        
-
-                    }
-
+                    listarDirectorioRecursivo();
                     break;
 
                 case 3:
-
-                    JFileChooser chooser3 = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
-                    chooser3.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-                    int returnVal3 = chooser3.showOpenDialog(null);
-
-                    if (returnVal3 == JFileChooser.APPROVE_OPTION) {
-
-                        File f3 = chooser3.getSelectedFile();       
-                        
-                        if (seBorro(f3)) {
-                            System.out.println("Se ha borrado");
-                        } else {
-                            System.out.println("Error...");
-                        }
-
-                    }
-
-
+                    eliminarArchivoODirectorio();
                     break;
 
                 case 4:
-
+                    moverArchivoODirectorio();
                     break;
 
                 default:
@@ -110,6 +55,89 @@ public class Ejercicio3 {
             opcion = opcionMenu();
         }
 
+    }
+
+    private static void moverArchivoODirectorio() {
+        System.out.println("Selecciona el archivo o carpeta que quieres mover/renombrar");
+        Scanner sc = new Scanner(System.in);
+        JFileChooser chooser = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
+
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int returnVal = chooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File fOrigen = chooser.getSelectedFile();
+            System.out.print("Introduce el nuevo nombre: ");
+            String nuevoNombre = sc.nextLine();
+
+            System.out.println("Carpeta destino s/n: ");
+            File fDestino = new File(fOrigen.getParentFile(), nuevoNombre);
+
+            if (fOrigen.renameTo(fDestino)) {
+                System.out.println("Operacion realizada con exito");
+            } else {
+                System.out.println("Error al renombrar/mover");
+            }
+        }
+    }
+
+    private static void eliminarArchivoODirectorio() {
+        JFileChooser chooser = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int returnVal = chooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File f = chooser.getSelectedFile();
+
+            if (eliminarRecursivo(f)) {
+                System.out.println("Se ha borrado");
+            } else {
+                System.out.println("Error...");
+            }
+
+        }
+    }
+
+    private static void listarDirectorioRecursivo() {
+        JFileChooser chooser = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int returnVal = chooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File f = chooser.getSelectedFile();
+            System.out.println("Contenido de: " + f.getAbsolutePath());
+
+            listarRecursiva(f, "");
+        }
+    }
+
+    private static void crearDirectorio() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce nombre del directorio: ");
+        String nombreDirectorio = sc.nextLine();
+
+        JFileChooser chooser = new JFileChooser("E:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int returnVal = chooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            File f = chooser.getSelectedFile();
+
+            File nuevoDirectorio = new File(f, nombreDirectorio);
+
+            if (nuevoDirectorio.mkdir()) {
+                System.out.println("Creado correctamente en " + nuevoDirectorio.getAbsolutePath());
+            } else {
+                System.out.println("No se ha podido crear");
+            }
+        }
     }
 
     private static int opcionMenu() {
@@ -134,7 +162,7 @@ public class Ejercicio3 {
             return;
 
         for (File f : directorio.listFiles()) {
-            System.out.println(sangria + 
+            System.out.println(sangria +
                     "- " + f.getName() + " (" + f.length() + ")" + (f.isDirectory() ? " DIRECTORIO" : " ARCHIVO"));
 
             if (f.isDirectory()) {
@@ -145,16 +173,15 @@ public class Ejercicio3 {
 
     }
 
-    private static boolean seBorro(File directorio) {
-
-        boolean seHaBorrado = false;
+    private static boolean eliminarRecursivo(File directorio) {
 
         if (directorio.isDirectory()) {
-            for (File f : directorio.listFiles()) {
-                seBorro(f);
+            if (directorio.listFiles() != null) {
+                for (File f : directorio.listFiles()) {
+                    eliminarRecursivo(f);
+                }
             }
         }
-
 
         return directorio.delete();
     }
