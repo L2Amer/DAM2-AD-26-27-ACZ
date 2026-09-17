@@ -1,6 +1,7 @@
 package ud1;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
@@ -21,10 +22,24 @@ import javax.swing.JFileChooser;
  */
 public class Ejercicio2NIO {
 
-    public static void  imprime(Path p) {
-        
+    static long totalSize = 0;
+
+
+    public static void imprime(Path p) {
+        System.out.print("Nombre: " + p.getFileName());
+
+        try {
+            long size = Files.size(p);
+            totalSize += size;
+            System.out.print(" (" + size + ") ");
+            System.out.println(Files.isDirectory(p) ? "[DIRECTORIO]" : "[FICHERO]");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     public static void main(String[] args) {
+
 
         JFileChooser chooser = new JFileChooser("F:\\DAM-2\\ADAT\\DAM2-AD-26-27-ACZ\\src\\ud1");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -32,17 +47,19 @@ public class Ejercicio2NIO {
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
             File f = chooser.getSelectedFile();
-            Path p = f.toPath();
+            Path path = f.toPath();
 
             // Try cath con recursos (cierra automáticamente el flujo)
-            try (Stream<Path> stream = Files.list(p)) {
+            try (Stream<Path> stream = Files.list(path)) {
 
                 // Iterar con Consumer
                 System.out.println("\n IMPRIMIR CON CONSUMER");
-                stream.forEach(System.out::println);
+                stream.forEach(Ejercicio2NIO::imprime);
+
+                System.out.println("Tamaño total: " + totalSize);
 
                 System.out.println("\n IMPRIMIR CON ITERATOR");
-                Stream<Path> stream2 = Files.list(p);
+                Stream<Path> stream2 = Files.list(path);
                 Iterator<Path> it = stream2.iterator();
 
                 while (it.hasNext()) {
