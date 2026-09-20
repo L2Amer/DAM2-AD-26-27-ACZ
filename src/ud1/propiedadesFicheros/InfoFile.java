@@ -1,4 +1,6 @@
-package ud1;
+package ud1.propiedadesFicheros;
+
+
 
 import java.io.*;
 

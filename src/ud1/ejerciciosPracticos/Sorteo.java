@@ -1,4 +1,4 @@
-package ud1;
+package ud1.ejerciciosPracticos;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

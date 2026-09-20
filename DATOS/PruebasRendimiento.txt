@@ -1,0 +1,27 @@
+
+NUEVA PRUEBA DE RENDIMIENTO: 
+** CONDICIONES **: 
+     - Bytes escritos: 1000000
+     - Tamaño del buffer: 100
+** RESULTADOS ** 
+     - Tiempo con FileOutputStream: 3.20802 segundos 
+     - Tiempo con BufferedOutpurStream: 3.20802 segundos 
+ 
+ 
+----------------------------------------------------------------------
+NUEVA PRUEBA DE RENDIMIENTO: 
+** CONDICIONES **: 
+     - Bytes escritos: 1000000
+     - Tamaño del buffer: 2
+** RESULTADOS ** 
+     - Tiempo con FileOutputStream: 3.0936182 segundos 
+     - Tiempo con BufferedOutpurStream: 3.0936182 segundos 
+----------------------------------------------------------------------
+NUEVA PRUEBA DE RENDIMIENTO: 
+** CONDICIONES **: 
+     - Bytes escritos: 1000000
+     - Tamaño del buffer: 2501
+** RESULTADOS ** 
+     - Tiempo con FileOutputStream: 3.0348303 segundos 
+     - Tiempo con BufferedOutpurStream: 3.0348303 segundos 
+----------------------------------------------------------------------
