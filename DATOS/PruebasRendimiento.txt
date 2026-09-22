@@ -25,3 +25,11 @@ NUEVA PRUEBA DE RENDIMIENTO:
      - Tiempo con FileOutputStream: 3.0348303 segundos 
      - Tiempo con BufferedOutpurStream: 3.0348303 segundos 
 ----------------------------------------------------------------------
+NUEVA PRUEBA DE RENDIMIENTO: 
+** CONDICIONES **: 
+     - Bytes escritos: 10000000
+     - Tamaño del buffer: 1024
+** RESULTADOS ** 
+     - Tiempo con FileOutputStream: 46.3782087 segundos 
+     - Tiempo con BufferedOutpurStream: 46.3782087 segundos 
+----------------------------------------------------------------------
