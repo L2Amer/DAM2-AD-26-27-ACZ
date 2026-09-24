@@ -41,14 +41,14 @@ public class AnalisisTexto {
                     if (Character.isSpaceChar(l.charAt(i))) {
                         espacios += 1;
                     } else {
+                        if (Character.isDigit(l.charAt(i))) {
+                            digitos += 1;
+                        }
+
                         if (vocalesStr.indexOf(l.charAt(i)) != -1) {
                             vocales += 1;
                         } else {
                             consonantes += 1;
-                        }
-
-                        if (Character.isDigit(l.charAt(i))) {
-                            digitos += 1;
                         }
                     }
                 }

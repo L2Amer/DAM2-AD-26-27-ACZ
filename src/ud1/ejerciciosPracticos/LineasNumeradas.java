@@ -32,7 +32,7 @@ public class LineasNumeradas {
                 out.write(l);                    
                 out.newLine();
                 
-                indice +=1;
+                indice ++;
             }
 
         } catch (Exception e) {

@@ -35,11 +35,11 @@ public class ComparadorFicheros {
 
                 for (int i = 0; i < lista1.size() && esMismoCaracter; i++) {
 
-                    linea += 1;
+                    linea = i + 1;
 
                     for (int j = 0; j < lista1.get(i).length() && esMismoCaracter; j++) {
                         if (lista1.get(i).charAt(j) != lista2.get(i).charAt(j)) {
-                            columna += j + 1;
+                            columna = j + 1;
                             esMismoCaracter = false;
                         }
                     }
